@@ -1,8 +1,5 @@
-src/step%:
-	spago bundle-app --main ${${@F}} --to $(@F:%.purs=%.js)
-
-
-#####################
+%.js:
+	spago bundle-app --main $($(%.js=%.purs)) --to $(%.purs=%.js)
 
 step0_repl.purs = Mal.Step0
 step1_read_print.purs = Mal.Step1

@@ -3,7 +3,7 @@ module Mal.Step0 where
 import Prelude
 import Effect (Effect)
 import Effect.Console (log)
-import Node.Readline (Interface, prompt, close, setLineHandler, setPrompt, noCompletion, createConsoleInterface)
+import Node.ReadLine (Interface, prompt, close, setLineHandler, setPrompt, noCompletion, createConsoleInterface)
 
 main :: Effect Unit
 main = do
@@ -12,16 +12,15 @@ main = do
   loop interface
 
 loop :: Interface -> Effect Unit
-loop interface =
-  do
-    prompt interface
-    interface
+loop interface = do
+  prompt interface
+  interface
     # setLineHandler \s -> case s of
-        ":q" -> \_ -> close interface
-        ":Q" -> \_ -> close interface
+        ":q" -> close interface
+        ":Q" -> close interface
         line -> do
           log line
-          loop
+          loop interface
 
 read :: String -> String
 read s = s
